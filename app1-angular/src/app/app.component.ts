@@ -18,16 +18,8 @@ export class AppComponent {
 			company: ''
 		}
 	}
-  
-	retrievePerson(id) {
-		this.personService.getPersonData(id).subscribe(
-			(data) => {
-				console.log(data);
-				this.model = data[0];
-			}
-		);
-	}
 	
+	// Add a new person entry into the database, then retrieve it
 	onSubmit(input) {
 		this.personService.submitPersonData(input).subscribe(
 			(data) => {
@@ -35,6 +27,16 @@ export class AppComponent {
 					var id = (data as any).insertId;
 					this.retrievePerson(id);
 				}
+			}
+		);
+	}
+	
+	// Get the data for a person of given ID, display on UI
+	retrievePerson(id) {
+		this.personService.getPersonData(id).subscribe(
+			(data) => {
+				console.log(data);
+				this.model = data[0];
 			}
 		);
 	}

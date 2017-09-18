@@ -15,14 +15,45 @@ router.get('/getPerson', function (req, res) {
 });
 
 
-// Adds a new person entry into the database
+// Add a new person entry into the database
 router.post('/addPerson', function (req, res) {
 	console.log(req.body);
-	var query = 'INSERT INTO person (id, first_name, last_name, address, company) VALUES (0, \'' + 
+	
+	// company can be blank, first name, last name, and address cannot
+	if (!req.body.firstName || typeof req.body.firstName !== 'string') {
+		res.setHeader('Content-Type', 'application/json');
+		res.status(400).send('Invalid or missing First Name');
+		return;
+	}
+	
+	if (!req.body.lastName || typeof req.body.lastName !== 'string') {
+		res.setHeader('Content-Type', 'application/json');
+		res.status(400).send('Invalid or missing First Name');
+		return;
+	}
+	
+	if (!req.body.address || typeof req.body.address !== 'string') {
+		res.setHeader('Content-Type', 'application/json');
+		res.status(400).send('Invalid or missing First Name');
+		return;
+	}
+	
+	// Building and executing the query
+	var query = '';
+		
+	if (req.body.company) {
+		query = 'INSERT INTO person (id, first_name, last_name, address, company) VALUES (0, \'' + 
 		req.body.firstName + '\', \'' + 
 		req.body.lastName + '\', \'' + 
 		req.body.address + '\', \'' + 
 		req.body.company + '\')';
+	} else {
+		query = 'INSERT INTO person (id, first_name, last_name, address) VALUES (0, \'' + 
+		req.body.firstName + '\', \'' + 
+		req.body.lastName + '\', \'' + 
+		req.body.address + '\')';
+	}
+	
 	console.log(query);
 	db.query(query, function(err, results, query) {
 		if (err) {
