@@ -18,7 +18,7 @@ router.get('/getPerson', function (req, res) {
 // Adds a new person entry into the database
 router.post('/addPerson', function (req, res) {
 	console.log(req.body);
-	var query = 'INSERT INTO person (first_name, last_name, address, company) VALUES (\'' + 
+	var query = 'INSERT INTO person (id, first_name, last_name, address, company) VALUES (0, \'' + 
 		req.body.firstName + '\', \'' + 
 		req.body.lastName + '\', \'' + 
 		req.body.address + '\', \'' + 

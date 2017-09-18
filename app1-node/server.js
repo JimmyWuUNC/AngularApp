@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var person = require('./routes/person')
 
@@ -10,7 +11,10 @@ app.listen(port, function() {
 
 app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
 	next(); // Not needed ???
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use('/person', person);

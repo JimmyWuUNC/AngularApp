@@ -9,4 +9,8 @@ export class PersonService {
 	getPersonData(id) {
 		return this.http.get('http://localhost:3000/person/getPerson?id=' + id);
 	}
+	
+	submitPersonData(params) {
+		return this.http.post('http://localhost:3000/person/addPerson', params);
+	}
 }

@@ -1,29 +1,28 @@
-<h1>Title</h1>
-<div class="container col-md-6">
-    <h1>Form</h1>
-    <form>
-		<div class="form-group">
-			<label for="first_name">First Name</label>
-			<input type="text" class="form-control" id="first_name" [(ngModel)]="title" name="first_name" required>
+<div class="container">
+	<h1 class="text-center">Angular Application</h1>
+    <form class="container col-sm-6" #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)" novalidate>
+		<div [hidden]="nameRef.valid ">
+			<label>First Name, Last Name, and Address are requried.</label>
 		</div>
- 
-		<div class="form-group">
-			<label for="last_name">Last Name</label>
-			<input type="text" class="form-control" id="last_name" required>
-		</div>
-		
-		<div class="form-group">
-			<label for="address">Address</label>
-			<input type="text" class="form-control" id="address">
-		</div>
-		
-		<div class="form-group">
-			<label for="company">Company</label>
-			<input type="text" class="form-control" id="company">
-		</div>
- 
-		<button type="submit" class="btn btn-success" (click)="submit()">Submit</button>
- 
+		<input type="text" #nameRef="ngModel" required class="form-control" name="firstName" placeholder="first name" ngModel>
+		<br/>
+		<input type="text" #nameRef="ngModel" required class="form-control" name="lastName" placeholder="last name" ngModel>
+		<br/>
+		<input type="text" #nameRef="ngModel" required class="form-control" name="address" placeholder="address" ngModel>
+		<br/>
+		<input type="text" #nameRef="ngModel" class="form-control" name="company" placeholder="company (optional)" ngModel>
+		<br/>
+		<br/>
+		<button [disabled]="!userForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
     </form>
+	
+	<div class="container well col-sm-6">
+		<label>Data submitted</label>
+		<p>First Name: {{model.first_name}}</p>
+		<p>Last Name: {{model.last_name}}</p>
+		<p>Address: {{model.address}}</p>
+		<p>Company: {{model.company}}</p>
+	</div>
+	
 </div>
 
